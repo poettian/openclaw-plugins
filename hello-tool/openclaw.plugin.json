@@ -1,0 +1,6 @@
+{
+  "id": "hello-tool",
+  "name": "Hello Tool",
+  "description": "A minimal tool plugin template demonstrating registerTool and registerHook.",
+  "configSchema": {}
+}
