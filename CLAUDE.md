@@ -8,9 +8,15 @@ A collection of [OpenClaw](https://docs.openclaw.ai) plugins for learning and ex
 
 ## Knowledge sources — consult in this order
 
-1. **`doc/README.md`** — verified SDK patterns, type constraints, and gotchas from direct source inspection. Always check here first.
+1. **`doc/`** — verified SDK patterns, type constraints, and gotchas from direct source inspection. Always check here first.
+   - [`doc/common.md`](doc/common.md) — package setup, imports, `definePluginEntry`, config schema, TypeBox
+   - [`doc/tool-hook-plugins.md`](doc/tool-hook-plugins.md) — tool registration, optional tools, lifecycle hooks
+   - [`doc/channel-plugins.md`](doc/channel-plugins.md) — channel plugin patterns
+   - [`doc/provider-plugins.md`](doc/provider-plugins.md) — provider plugin patterns
 2. **Official docs**: https://docs.openclaw.ai — authoritative on concepts and high-level API.
 3. **OpenClaw source**: `~/Code/ai/openclaw/src/plugins/` and `~/Code/ai/openclaw/extensions/` — ground truth when docs and `doc/` disagree or are incomplete.
+
+**Write-back rule**: whenever you fill a knowledge gap by consulting the official docs or source code, add what you learned to the relevant `doc/` file before finishing the task.
 
 ## Commands
 
