@@ -19,6 +19,9 @@
       "outDir": "./dist"
     }
   },
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.0"
+  },
   "devDependencies": {
     "openclaw": "^2026.4.21"
   }

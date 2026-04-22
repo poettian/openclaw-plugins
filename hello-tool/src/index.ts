@@ -1,5 +1,5 @@
+import { Type } from "@sinclair/typebox";
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { z } from "openclaw/plugin-sdk/zod";
 
 export default definePluginEntry({
   id: "hello-tool",
@@ -7,43 +7,42 @@ export default definePluginEntry({
   description: "A minimal tool + hook plugin template.",
 
   register(api) {
-    // --- Tool: always available, no side effects ---
     api.registerTool({
       name: "hello_greet",
+      label: "Hello Greet",
       description: "Returns a greeting for the given name.",
-      parameters: z.object({
-        name: z.string().describe("The name to greet."),
+      parameters: Type.Object({
+        name: Type.String({ description: "The name to greet." }),
       }),
       async execute(_id, { name }) {
         return {
           content: [{ type: "text", text: `Hello, ${name}!` }],
+          details: null,
         };
       },
     });
 
-    // --- Tool: optional (has side effects / external calls) ---
     api.registerTool(
       {
         name: "hello_log",
+        label: "Hello Log",
         description: "Logs a message to the gateway console (side-effectful).",
-        parameters: z.object({
-          message: z.string().describe("Message to log."),
+        parameters: Type.Object({
+          message: Type.String({ description: "Message to log." }),
         }),
         async execute(_id, { message }) {
           console.log("[hello-tool]", message);
           return {
             content: [{ type: "text", text: `Logged: ${message}` }],
+            details: null,
           };
         },
       },
       { optional: true },
     );
 
-    // --- Hook: inspect every tool call before it runs ---
-    api.registerHook("before_tool_call", async (ctx) => {
-      // Return { block: true } to cancel, { requireApproval: true } to pause.
-      // Return { block: false } (or nothing) to allow.
-      console.log("[hello-tool] before_tool_call:", ctx.toolName);
+    api.on("before_tool_call", async (event) => {
+      console.log("[hello-tool] before_tool_call:", event.toolName);
       return { block: false };
     });
   },
