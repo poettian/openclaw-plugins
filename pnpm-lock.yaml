@@ -12,6 +12,16 @@ importers:
         specifier: ^5.8.0
         version: 5.9.3
 
+  event-logger:
+    dependencies:
+      '@sinclair/typebox':
+        specifier: ^0.34.0
+        version: 0.34.49
+    devDependencies:
+      openclaw:
+        specifier: ^2026.4.21
+        version: 2026.4.21(@napi-rs/canvas@0.1.99)
+
   hello-tool:
     dependencies:
       '@sinclair/typebox':

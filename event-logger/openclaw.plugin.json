@@ -1,0 +1,6 @@
+{
+  "id": "event-logger",
+  "name": "Event Logger",
+  "description": "Logs message and LLM lifecycle events to console for inspection.",
+  "configSchema": {}
+}

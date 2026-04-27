@@ -1,0 +1,28 @@
+{
+  "name": "@openclaw-plugins/event-logger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "openclaw": {
+    "extensions": ["./dist/index.js"],
+    "compat": {
+      "pluginApi": "1.0.0",
+      "minGatewayVersion": "1.0.0"
+    },
+    "build": {
+      "outDir": "./dist"
+    }
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.0"
+  },
+  "devDependencies": {
+    "openclaw": "^2026.4.21"
+  }
+}
