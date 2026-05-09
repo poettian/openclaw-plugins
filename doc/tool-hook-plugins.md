@@ -96,6 +96,16 @@ api.on("before_tool_call", async (event, ctx) => {
 | `reply_dispatch` | Reply being dispatched | modify reply |
 | `before_install` | Before plugin install completes | `{ block: true }` aborts |
 
+### Message hook caveat
+
+`message_received`, `message_sending`, and `message_sent` are all valid hook names, but they are wired through different runtime paths:
+
+- `message_received` is emitted by the inbound auto-reply dispatcher (`src/auto-reply/reply/dispatch-from-config.ts`) before the agent turn is processed, so channel plugins that use the common inbound dispatch path will usually trigger it.
+- `message_sending` is emitted only when the reply delivery path installs the common `beforeDeliver` bridge, or when the generic outbound delivery helper (`src/infra/outbound/deliver.ts`) is used. Channel plugins that construct `createReplyDispatcherWithTyping()` directly, or pass their own `beforeDeliver`, can bypass this hook.
+- `message_sent` is emitted by the generic outbound delivery helper after `sendText` / `sendPayload` / media delivery completes. Channel plugins that send replies directly from their local `deliver` callback do not automatically emit it.
+
+If an event logger only sees `message_received` for channel-plugin replies, the hook registration is probably correct; the channel's send path is not going through the outbound helper or the default `beforeDeliver` bridge.
+
 ### before_tool_call in detail
 
 ```typescript
